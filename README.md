@@ -12,17 +12,12 @@ The ‘WAR Network Scanner’ is a script written in Python3 that allows port sc
 
 ### Libraries
 
-socket
-
-os
-
-pyQt5
-
-sys
-
-subprocess
-
-whois11
+- socket
+- os
+- pyQt5
+- sys
+- subprocess
+- whois11
 
 ## Commands:
 
