@@ -95,7 +95,7 @@ class Ui_InfoProject(object):
 
     def retranslateUi(self, InfoProject):
         _translate = QtCore.QCoreApplication.translate
-        InfoProject.setWindowTitle(_translate("InfoProject", "MainWindow"))
+        InfoProject.setWindowTitle(_translate("InfoProject", "Info Project"))
         self.inputText.setHtml(_translate("InfoProject", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -114,3 +114,13 @@ class Ui_InfoProject(object):
         self.clear.setText(_translate("InfoProject", "Clear"))
         self.menuFile.setTitle(_translate("InfoProject", "File"))
         self.actionExit.setText(_translate("InfoProject", "Exit"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    InfoProject = QtWidgets.QMainWindow()
+    ui = Ui_InfoProject()
+    ui.setupUi(InfoProject)
+    InfoProject.show()
+    sys.exit(app.exec_())

@@ -32,8 +32,11 @@ MANIFEST
 *.manifest
 *.spec
 
+# Custom dependancies
 # pyQt5 files
 *.ui
+# files
+files/
 
 # Installer logs
 pip-log.txt
