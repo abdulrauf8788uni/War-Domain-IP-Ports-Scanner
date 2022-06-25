@@ -37,6 +37,8 @@ MANIFEST
 *.ui
 # files
 files/
+test.*
+saves/
 
 # Installer logs
 pip-log.txt

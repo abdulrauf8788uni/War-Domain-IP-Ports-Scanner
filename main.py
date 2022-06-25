@@ -12,13 +12,36 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import socket
 import sys
 import subprocess
+import whois11
+import os
 
 class Ui_InfoProject(object):            
-    def iprint(self, text):
-        self.outputText.setText(f"{self.outputText.text()}\n{text}")
+    def iprint(self, text, end='\n'):
+        self.outputText.setText(f"{self.outputText.text()}{end}{text}")
 
     def clear_console(self):
         self.outputText.clear()
+
+    def save_txt(self):
+        # Error Handling
+        exists = os.path.exists('saves/output1.txt')
+        if not exists:
+            try:
+                os.mkdir("saves")
+            except: 
+                pass
+            new_num = 1
+        else:
+            max_num = 0
+            dirnames = os.listdir('saves')
+            filenumbers = list(map(lambda x: int(x[6:-4]), dirnames))
+            new_num = max(filenumbers) + 1
+
+        with open(f"saves/output{new_num}.txt", "w") as f:
+            f.write(self.outputText.text()) 
+
+
+
 
     def scan(self, choice):
         target = self.inputText.toPlainText()
@@ -82,11 +105,15 @@ class Ui_InfoProject(object):
         elif choice == "7":
             output = subprocess.check_output(topports.strip())
         elif choice == "8":
-            chrs = whois11.whois(str(target))
-            for i in range(len(chrs)):
-                 if chrs[i]=='>' and chrs[i+1]=='>' and chrs[i+2]=='>':
-                     return
-                 print(chrs[i],end='')
+            try:
+                chrs = whois11.whois(str(target))
+                for i in range(len(chrs)):
+                     if chrs[i]=='>' and chrs[i+1]=='>' and chrs[i+2]=='>':
+                         return
+                     self.iprint(chrs[i], end='')
+            except:
+                self.iprint("Error during execution.")
+                return 
         else:
             pass
 
@@ -150,6 +177,7 @@ class Ui_InfoProject(object):
         self.whois = QtWidgets.QPushButton(self.functions)
         self.whois.setGeometry(QtCore.QRect(210, 30, 81, 30))
         self.whois.setObjectName("whois")
+        self.whois.clicked.connect(lambda: self.scan("8"))
         self.Output = QtWidgets.QGroupBox(self.centralwidget)
         self.Output.setGeometry(QtCore.QRect(20, 200, 551, 321))
         self.Output.setObjectName("Output")
@@ -167,6 +195,7 @@ class Ui_InfoProject(object):
         self.save = QtWidgets.QPushButton(self.centralwidget)
         self.save.setGeometry(QtCore.QRect(20, 530, 111, 28))
         self.save.setObjectName("save")
+        self.save.clicked.connect(lambda: self.save_txt())
         self.clear = QtWidgets.QPushButton(self.centralwidget)
         self.clear.setGeometry(QtCore.QRect(460, 530, 111, 28))
         self.clear.setObjectName("clear")
